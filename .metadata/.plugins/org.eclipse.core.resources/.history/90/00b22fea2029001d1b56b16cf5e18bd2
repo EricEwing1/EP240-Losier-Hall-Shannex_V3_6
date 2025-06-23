@@ -1,0 +1,52 @@
+package pointconfig;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.serotonin.bacnet4j.type.enumerated.ObjectType;
+import com.serotonin.bacnet4j.type.primitive.ObjectIdentifier;
+
+import main.PointConnnectionContainer;
+import pdb.PdbException;
+import pdb.PdbInterface;
+
+//import main.FahrenheitCelsiusScaler;
+//import main.OffsetFahrenheitCelsiusScaler;
+//import main.Scaler;
+import pdb.MultiStateTranslation;
+import pdb.MultiStateValue;
+import pdb.PDBb;
+
+
+public class ddc08 {
+
+public static List<PointConnnectionContainer> points(PdbInterface pdb) throws PdbException {
+	List<PointConnnectionContainer> pointList = new ArrayList<PointConnnectionContainer>();
+	
+	MultiStateTranslation msTranslation1 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(999, "Auto", 3, "Auto"),
+			new MultiStateValue(0, "Off", 1, "Off"),
+			new MultiStateValue(1, "On", 2, "On")
+	));
+	
+	/*
+	MultiStateTranslation msTranslation2 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(0, "Off", 1, "Off"),
+			new MultiStateValue(1, "On", 2, "On")
+	));
+	*/
+	/*
+	MultiStateTranslation msTranslation3 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(2, "Pump2", 4, "P2"),
+			new MultiStateValue(1, "Pump1", 3, "P1"),
+			new MultiStateValue(0, "Off", 2, "Off"),
+			new MultiStateValue(999, "Auto", 1, "Automatic")
+	));
+	*/
+	PDBb sys = new PDBb("SYS", "Description");
+	
+		
+	return pointList;
+}
+}

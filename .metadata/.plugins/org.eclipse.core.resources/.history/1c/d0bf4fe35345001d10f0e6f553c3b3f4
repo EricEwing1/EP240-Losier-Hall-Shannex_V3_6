@@ -1,0 +1,284 @@
+package pointconfig;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.serotonin.bacnet4j.type.enumerated.ObjectType;
+import com.serotonin.bacnet4j.type.primitive.ObjectIdentifier;
+
+import main.PointConnnectionContainer;
+import pdb.PdbException;
+import pdb.PdbInterface;
+
+//import main.FahrenheitCelsiusScaler;
+//import main.OffsetFahrenheitCelsiusScaler;
+//import main.Scaler;
+import pdb.MultiStateTranslation;
+import pdb.MultiStateValue;
+import pdb.PDBb;
+
+
+public class ddc08 {
+
+public static List<PointConnnectionContainer> points(PdbInterface pdb) throws PdbException {
+	List<PointConnnectionContainer> pointList = new ArrayList<PointConnnectionContainer>();
+	
+	MultiStateTranslation msTranslation1 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(999, "Auto", 1, "Auto"),
+			new MultiStateValue(0, "Off", 2, "Off"),
+			new MultiStateValue(1, "On", 3, "On")
+	));
+	
+	/*
+	MultiStateTranslation msTranslation2 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(0, "Off", 1, "Off"),
+			new MultiStateValue(1, "On", 2, "On")
+	));
+	*/
+	/*
+	MultiStateTranslation msTranslation3 =  new MultiStateTranslation(Arrays.asList(
+			new MultiStateValue(2, "Pump2", 4, "P2"),
+			new MultiStateValue(1, "Pump1", 3, "P1"),
+			new MultiStateValue(0, "Off", 2, "Off"),
+			new MultiStateValue(999, "Auto", 1, "Automatic")
+	));
+	*/
+	//PDBb ve02 = new PDBb("ve02", "VE02, Ventilation");
+	//PDBb vu02 = new PDBb("vu02", "VU02, Udsugning");
+	//PDBb vx08 = new PDBb("vx08", "VX08, Blandesløjfe");
+	
+	
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir100v.heatpump02.osw","Driftsvalg ECO-Pilot IR100V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 97)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir100v.roomtempcont02.out1","Radiatorventil IR100V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 23), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir100v.roomtempcont02.ms","Temperatur Rum IR100V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 70), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir100v.rettempcont02.csp","Kalkuleret Setpunkt IR100V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 209), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir100v.roomtempcont02.csp","Setp.Rumtemp. IR100V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 212), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir100v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR100V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 211)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir13.roomtempcont02.cs","Luftkvalitet Rum IR13-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 66), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir13.present02.di","PIR Føler IR13-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 42), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir14.roomtempcont02.cs","Luftkvalitet Rum IR14-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 67), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir14.present02.di","PIR Føler IR14-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 43), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir15.roomtempcont02.cs","Luftkvalitet Rum IR15-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 68), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir15.present02.di","PIR Føler IR15-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 44), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir16.roomtempcont02.cs","Luftkvalitet Rum IR16-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 69), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir16.present02.di","PIR Føler IR16-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 45), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.suppresscont02.out1","Hastighed Ventilator IR17V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 8), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.roomtempcont02.cs","Luftkvalitet Rum IR17V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 9), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir17v.heatpump02.osw","Driftsvalg ECO-Pilot IR17V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 10)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.roomtempcont02.out1","Radiatorventil IR17V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 3), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir17v.present02.di","PIR Føler IR17V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 6), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.roomtempcont02.ms","Temperatur Rum IR17V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 7), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.rettempcont02.csp","Kalkuleret Setpunkt IR17V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 23), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.roomtempcont02.csp","Setp.Rumtemp. IR17V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 26), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir17v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR17V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 25)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.suppresscont02.out1","Hastighed Ventilator IR18V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 11), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.roomtempcont02.cs","Luftkvalitet Rum IR18V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 12), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir18v.heatpump02.osw","Driftsvalg ECO-Pilot IR18V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 14)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.roomtempcont02.out1","Radiatorventil IR18V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 4), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir18v.present02.di","PIR Føler IR18V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 8), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.roomtempcont02.ms","Temperatur Rum IR18V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 10), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.rettempcont02.csp","Kalkuleret Setpunkt IR18V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 31), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.roomtempcont02.csp","Setp.Rumtemp. IR18V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 34), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir18v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR18V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 33)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.suppresscont02.out1","Hastighed Ventilator IR19V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 14), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.roomtempcont02.cs","Luftkvalitet Rum IR19V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 15), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir19v.heatpump02.osw","Driftsvalg ECO-Pilot IR19V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 18)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.roomtempcont02.out1","Radiatorventil IR19V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 5), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir19v.present02.di","PIR Føler IR19V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 10), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.roomtempcont02.ms","Temperatur Rum IR19V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 13), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.rettempcont02.csp","Kalkuleret Setpunkt IR19V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 39), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.roomtempcont02.csp","Setp.Rumtemp. IR19V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 42), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir19v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR19V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 41)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.suppresscont02.out1","Hastighed Ventilator IR20V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 17), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.roomtempcont02.cs","Luftkvalitet Rum IR20V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 18), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir20v.heatpump02.osw","Driftsvalg ECO-Pilot IR20V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 22)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.roomtempcont02.out1","Radiatorventil IR20V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 6), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir20v.present02.di","PIR FÃ¸ler IR20V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 12), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.roomtempcont02.ms","Temperatur Rum IR20V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 16), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.rettempcont02.csp","Kalkuleret Setpunkt IR20V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 47), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir20v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR20V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 49)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.suppresscont02.out1","Hastighed Ventilator IR21V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 20), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.roomtempcont02.cs","Luftkvalitet Rum IR21V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 21), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir21v.heatpump02.osw","Driftsvalg ECO-Pilot IR21V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 26)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.roomtempcont02.out1","Radiatorventil IR21V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 7), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir21v.present02.di","PIR Føler IR21V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 14), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.rettempcont02.csp","Kalkuleret Setpunkt IR21V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 55), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.roomtempcont02.csp","Setp.Rumtemp. IR21V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 58), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir21v.roomtempcont02.cs","Forskydning Rumtemp ECOpilot IR21V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 57)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.suppresscont02.out1","Hastighed Ventilator IR22V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 23), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.roomtempcont02.cs","Luftkvalitet Rum IR22V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 24), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir22v.heatpump02.osw","Driftsvalg ECO-Pilot IR22V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 30)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.roomtempcont02.out1","Radiatorventil IR22V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 8), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir22v.present02.di","PIR Føler IR22V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 16), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.roomtempcont02.ms","Temperatur Rum IR22V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 22), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.rettempcont02.csp","Kalkuleret Setpunkt IR22V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 63), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.roomtempcont02.csp","Setp.Rumtemp. IR22V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 66), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir22v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR22V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 65)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.suppresscont02.out1","Hastighed Ventilator IR23V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 26), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.roomtempcont02.cs","Luftkvalitet Rum IR23V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 27), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir23v.heatpump02.osw","Driftsvalg ECO-Pilot IR23V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 34)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.roomtempcont02.out1","Radiatorventil IR23V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 9), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir23v.present02.di","PIR Føler IR23V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 18), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.roomtempcont02.ms","Temperatur Rum IR23V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 25), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.rettempcont02.csp","Kalkuleret Setpunkt IR23V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 71), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.roomtempcont02.csp","Setp.Rumtemp. IR23V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 74), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir23v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR23V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 73)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir24v.suppresscont02.out1","Hastighed Ventilator IR24V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 28), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir24v.roomtempcont02.cs","Luftkvalitet Rum IR24V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 29), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir24v.present02.di","PIR Føler IR24V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 20), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir24v.rettempcont02.csp","Kalkuleret Setpunkt IR24V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 79), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir24v.roomtempcont02.csp","Setp.Rumtemp. IR24V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 80), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.suppresscont02.out1","Hastighed Ventilator IR25V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 31), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.roomtempcont02.cs","Luftkvalitet Rum IR25V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 32), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir25v.heatpump02.osw","Driftsvalg ECO-Pilot IR25V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 41)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.roomtempcont02.out1","Radiatorventil IR25V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 10), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir25v.present02.di","PIR Føler IR25V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 22), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.roomtempcont02.ms","Temperatur Rum IR25V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 30), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.rettempcont02.csp","Kalkuleret Setpunkt IR25V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 85), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.roomtempcont02.csp","Setp.Rumtemp. IR25V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 88), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir25v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR25V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 87)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.suppresscont02.out1","Hastighed Ventilator IR26V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 34), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.roomtempcont02.cs","Luftkvalitet Rum IR26V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 35), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir26v.heatpump02.osw","Driftsvalg ECO-Pilot IR26V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 45)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.roomtempcont02.out1","Radiatorventil IR26V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 11), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir26v.present02.di","PIR FÃ¸ler IR26V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 24), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.roomtempcont02.ms","Temperatur Rum IR26V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 33), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.rettempcont02.csp","Kalkuleret Setpunkt IR26V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 93), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.roomtempcont02.csp","Setp.Rumtemp. IR26V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 96), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir26v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR26V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 95)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.suppresscont02.out1","Hastighed Ventilator IR27V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 37), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.roomtempcont02.cs","Luftkvalitet Rum IR27V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 38), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir27v.heatpump02.osw","Driftsvalg ECO-Pilot IR27V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 49)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.roomtempcont02.out1","Radiatorventil IR27V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 12), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir27v.present02.di","PIR Føler IR27V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 26), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.roomtempcont02.ms","Temperatur Rum IR27V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 36), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.rettempcont02.csp","Kalkuleret Setpunkt IR27V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 101), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.roomtempcont02.csp","Setp.Rumtemp. IR27V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 104), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir27v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR27V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 103)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir28v.suppresscont02.out1","Hastighed Ventilator IR28V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 39), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir28v.roomtempcont02.cs","Luftkvalitet Rum IR28V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 40), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir28v.present02.di","PIR Føler IR28V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 28), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir28v.rettempcont02.csp","Kalkuleret Setpunkt IR28V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 109), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir28v.roomtempcont02.csp","Setp.Rumtemp. IR28V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 110), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.suppresscont02.out1","Hastighed Ventilator IR29V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 42), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.roomtempcont02.cs","Luftkvalitet Rum IR29V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 43), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir29v.heatpump02.osw","Driftsvalg ECO-Pilot IR29V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 56)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.roomtempcont02.out1","Radiatorventil IR29V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 13), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir29v.present02.di","PIR Føler IR29V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 30), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.roomtempcont02.ms","Temperatur Rum IR29V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 41), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.rettempcont02.csp","Kalkuleret Setpunkt IR29V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 115), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.roomtempcont02.csp","Setp.Rumtemp. IR29V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 118), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir29v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR29V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 117)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.suppresscont02.out1","Hastighed Ventilator IR30V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 45), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.roomtempcont02.cs","Luftkvalitet Rum IR30V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 46), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir30v.heatpump02.osw","Driftsvalg ECO-Pilot IR30V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 60)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.roomtempcont02.out1","Radiatorventil IR30V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 14), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir30v.present02.di","PIR Føler IR30V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 32), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.roomtempcont02.ms","Temperatur Rum IR30V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 44), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.rettempcont02.csp","Kalkuleret Setpunkt IR30V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 123), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.roomtempcont02.csp","Setp.Rumtemp. IR30V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 126), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir30v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR30V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 125)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.suppresscont02.out1","Hastighed Ventilator IR31V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 48), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.roomtempcont02.cs","Luftkvalitet Rum IR31V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 49), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir31v.heatpump02.osw","Driftsvalg ECO-Pilot IR31V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 64)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.roomtempcont02.out1","Radiatorventil IR31V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 15), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir31v.present02.di","PIR Føler IR31V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 34), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.roomtempcont02.ms","Temperatur Rum IR31V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 47), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.rettempcont02.csp","Kalkuleret Setpunkt IR31V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 131), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.roomtempcont02.csp","Setp.Rumtemp. IR31V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 134), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir31v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR31V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 133)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.suppresscont02.out1","Hastighed Ventilator IR32V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 51), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.roomtempcont02.cs","Luftkvalitet Rum IR32V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 52), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir32v.heatpump02.osw","Driftsvalg ECO-Pilot IR32V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 68)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.roomtempcont02.out1","Radiatorventil IR32V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 16), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir32v.present02.di","PIR Føler IR32V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 36), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.roomtempcont02.ms","Temperatur Rum IR32V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 50), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.rettempcont02.csp","Kalkuleret Setpunkt IR32V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 139), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.roomtempcont02.csp","Setp.Rumtemp. IR32V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 142), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir32v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR32V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 141)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.suppresscont02.out1","Hastighed Ventilator IR33V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 54), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.roomtempcont02.cs","Luftkvalitet Rum IR33V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 55), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir33v.heatpump02.osw","Driftsvalg ECO-Pilot IR33V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 72)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.roomtempcont02.out1","Radiatorventil IR33V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 17), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir33v.present02.di","PIR Føler IR33V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 38), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.roomtempcont02.ms","Temperatur Rum IR33V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 53), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.rettempcont02.csp","Kalkuleret Setpunkt IR33V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 147), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.roomtempcont02.csp","Setp.Rumtemp. IR33V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 150), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir33v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR33V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 149)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.suppresscont02.out1","Hastighed Ventilator IR34V-HAST","%"),new ObjectIdentifier(ObjectType.analogInput, 57), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.roomtempcont02.cs","Luftkvalitet Rum IR34V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 58), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir34v.heatpump02.osw","Driftsvalg ECO-Pilot IR34V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 76)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.roomtempcont02.out1","Radiatorventil IR34V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 18), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ir34v.present02.di","PIR Føler IR34V-PIR"),new ObjectIdentifier(ObjectType.binaryInput, 40), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.roomtempcont02.ms","Temperatur Rum IR34V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 56), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.rettempcont02.csp","Kalkuleret Setpunkt IR34V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 155), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.roomtempcont02.csp","Setp.Rumtemp. IR34V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 158), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir34v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR34V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 157)));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir90v.heatpump02.osw","Driftsvalg ECO-Pilot IR90V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 80)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir90v.roomtempcont02.out1","Radiatorventil IR90V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 19), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir90v.roomtempcont02.ms","Temperatur Rum IR90V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 59), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir90v.rettempcont02.csp","Kalkuleret Setpunkt IR90V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 163), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir90v.roomtempcont02.csp","Setp.Rumtemp. IR90V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 166), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir90v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR90V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 165)));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir92v.heatpump02.osw","Driftsvalg ECO-Pilot IR92V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 84)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir92v.roomtempcont02.out1","Radiatorventil IR92V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 20), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir92v.roomtempcont02.ms","Temperatur Rum IR92V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 60), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir92v.rettempcont02.csp","Kalkuleret Setpunkt IR92V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 171), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir92v.roomtempcont02.csp","Setp.Rumtemp. IR92V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 174), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir92v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR92V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 173)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.roomtempcont02.cs","Luftkvalitet Rum IR95V-LK1","ppm"),new ObjectIdentifier(ObjectType.analogInput, 62), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ir95v.heatpump02.osw","Driftsvalg ECO-Pilot IR95V-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 88)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.roomtempcont02.out1","Radiatorventil IR95V-MVR","%"),new ObjectIdentifier(ObjectType.analogOutput, 21), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.roomtempcont02.ms","Temperatur Rum IR95V-TR1","C"),new ObjectIdentifier(ObjectType.analogInput, 61), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.rettempcont02.csp","Kalkuleret Setpunkt IR95V-TR1C","C"),new ObjectIdentifier(ObjectType.analogValue, 179), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.roomtempcont02.csp","Setp.Rumtemp. IR95V-TR1S","C"),new ObjectIdentifier(ObjectType.analogValue, 182), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ir95v.roomtempcont02.dsp","Forskydning Rumtemp ECOpilot IR95V-TR1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 181)));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ve02.heatpump01.di","Cirkl.Pumpe VFL VE02-CP1"),new ObjectIdentifier(ObjectType.binaryOutput, 2), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.nightcool.cs","Natkøl Signal ECO-Pilot VE02-Force-Vent-ECO"," "),new ObjectIdentifier(ObjectType.binaryValue, 46)));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ve02.freezecont02.di","Frosttermostat VE02-FT1"),new ObjectIdentifier(ObjectType.binaryInput, 0), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01.out2","Rotorveksler VE02-GV1","%"),new ObjectIdentifier(ObjectType.analogOutput, 0), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suppresscont01.out1","Frekvensomformer Indbl. VE02-HR1","%"),new ObjectIdentifier(ObjectType.analogOutput, 1), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhpresscont01.out1","Frekvensomformer Udsug. VE02-HR2","%"),new ObjectIdentifier(ObjectType.analogOutput, 2), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("ve02.day.tc.sw","Driftsvalg ECO-Pilot VE02-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 6)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01.out3","Motorventil VE02-MV1","%"),new ObjectIdentifier(ObjectType.analogOutput, 24), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.filterintake01.ms","Filtervagt Indbl. VE02-PF1","Pa"),new ObjectIdentifier(ObjectType.binaryInput, 2), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.filterexh01.ms","Filtervagt Udsug. VE02-PF2","Pa"),new ObjectIdentifier(ObjectType.binaryInput, 3), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suppresscont01.ms","Tryk Indblæsning VE02-PI1","Pa"),new ObjectIdentifier(ObjectType.analogInput, 2), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suppresscont01.csp","Kalkuleret Setpunkt VE02-PI1C","Pa"),new ObjectIdentifier(ObjectType.analogValue, 4), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suppresscont01.csp","Setp. Tryk Indblæsning VE02-PI1S","Pa"),new ObjectIdentifier(ObjectType.analogValue, 19), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suppresscont01.dsp","Forskydning Tryk Indbl. ECOpilot VE02-PI1S-ECO","Pa"),new ObjectIdentifier(ObjectType.analogValue, 6)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhpresscont01.ms","Tryk Udsugning VE02-PU1","Pa"),new ObjectIdentifier(ObjectType.analogInput, 3), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhpresscont01.csp","Kalkuleret Setpunkt VE02-PU1C","Pa"),new ObjectIdentifier(ObjectType.analogValue, 8), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhpresscont01.csp","Setp. Tryk Udsugning VE02-PU1S","Pa"),new ObjectIdentifier(ObjectType.analogValue, 20), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhpresscont01.dsp","Forskydning Tryk Udsug. ECOpilot VE02-PU1S-ECO","Pa"),new ObjectIdentifier(ObjectType.analogValue, 7)));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ve02.supdamper01.di","Spjæld Indbl. VE02-SP1"),new ObjectIdentifier(ObjectType.binaryOutput, 3), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01.ms","Temperatur Indblæsning VE02-TI1","C"),new ObjectIdentifier(ObjectType.analogInput, 0), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.rettempcont01.csp","Kalkuleret Setpunkt VE02-TI1C","C"),new ObjectIdentifier(ObjectType.analogValue, 9), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01.dsp","Forskydning Indblæsnings ECOpilot VE02-TI1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 5)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01mx.csp","Max Indblæsning VE02-TIHS","C"),new ObjectIdentifier(ObjectType.analogValue, 12), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.suptempcont01mn.csp","Min Indblæsning VE02-TILS","C"),new ObjectIdentifier(ObjectType.analogValue, 11), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhtemp02.cs","Temperatur Udsugning VE02-TU1","C"),new ObjectIdentifier(ObjectType.analogInput, 1), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("ve02.exhtemp02.cs","Setp. Temperatur Udsug. VE02-TU1S","C"),new ObjectIdentifier(ObjectType.analogValue, 10), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ve02.supfan01.di","Ventilator Indbl. VE02-VM1"),new ObjectIdentifier(ObjectType.binaryOutput, 1), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ve02.exhfan01.di","Ventilator Udsug. VE02-VM2"),new ObjectIdentifier(ObjectType.binaryOutput, 5), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vu02.exhpresscont02.csp","Kalkuleret Setpunkt VU02-PU1C","Pa"),new ObjectIdentifier(ObjectType.analogValue, 2), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("vu02.exhfan02.di","Ventilator Udsug. VU02-VM2"),new ObjectIdentifier(ObjectType.binaryOutput, 0), true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("vx08.heatpump01.di","Cirkl.Pumpe VX08-CP1"),new ObjectIdentifier(ObjectType.binaryOutput, 25), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.pumpstop01.cm","Setp. Sommerstop Ved Udetemp. VX08-ECOS","C"),new ObjectIdentifier(ObjectType.analogValue, 201), true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("vx08.heatpump01.osw","Driftsvalg ECO-Pilot VX08-MDV-ECO" , msTranslation1),new ObjectIdentifier(ObjectType.multiStateValue, 92)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01.out1","Motorventil VX08-MV1","%"),new ObjectIdentifier(ObjectType.analogOutput, 22), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01.ms","Temperatur Fremløb VX08-TF1","C"),new ObjectIdentifier(ObjectType.analogInput, 63), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01.csp","Kalkuleret Setpunkt VX08-TF1C","C"),new ObjectIdentifier(ObjectType.analogValue, 188), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01.dsp","Forskydning Fremløbstemp. ECOpilot VX08-TF1S-ECO","C"),new ObjectIdentifier(ObjectType.analogValue, 189)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01mx.csp","Setp. max Fremløbstemp. VX08-TFHS","C"),new ObjectIdentifier(ObjectType.analogValue, 199), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.suptempcont01mn.csp","Sept. min Fremløbstemp. VX08-TFLS","C"),new ObjectIdentifier(ObjectType.analogValue, 198), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.rettempcont02.ms","Temperatur Returløb VX08-TT1","C"),new ObjectIdentifier(ObjectType.analogInput, 64), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.rettempcont02.csp","Kalkuleret Setpunkt VX08-TT1C","C"),new ObjectIdentifier(ObjectType.analogValue, 187), true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("vx08.met.outdoortemp01.cs","Udetemperatur VX08-TUF","C"),new ObjectIdentifier(ObjectType.analogValue, 186), true));
+
+	
+		
+	return pointList;
+}
+}

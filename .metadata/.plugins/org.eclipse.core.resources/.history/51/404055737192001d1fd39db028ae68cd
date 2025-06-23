@@ -1,0 +1,243 @@
+package main;
+
+/*
+ * Dansk Industri, Copenhagen, Denmark
+ */
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.serotonin.bacnet4j.LocalDevice;
+import com.serotonin.bacnet4j.RemoteDevice;
+import com.serotonin.bacnet4j.exception.BACnetException;
+import com.serotonin.bacnet4j.npdu.ip.IpNetwork;
+import com.serotonin.bacnet4j.npdu.ip.IpNetworkBuilder;
+import com.serotonin.bacnet4j.npdu.ip.IpNetworkUtils;
+import com.serotonin.bacnet4j.service.acknowledgement.AcknowledgementService;
+import com.serotonin.bacnet4j.service.confirmed.ConfirmedRequestService;
+import com.serotonin.bacnet4j.transport.DefaultTransport;
+import com.serotonin.bacnet4j.type.constructed.Address;
+import com.serotonin.bacnet4j.type.enumerated.PropertyIdentifier;
+import com.serotonin.bacnet4j.util.DiscoveryUtils;
+import com.serotonin.bacnet4j.util.PropertyReferences;
+import com.serotonin.bacnet4j.util.PropertyValues;
+import com.serotonin.bacnet4j.util.RequestUtils;
+import pointconfig.*;
+import pdb.PDBf;
+import pdb.PDBi;
+import pdb.Pdb;
+import pdb.PdbInterface;
+import pdb.mock.PdbMock;
+
+public class SimpleSubscriptionClient {
+
+	public static void main(String[] args) throws Exception {
+		final Logger logger = LoggerFactory.getLogger(SimpleSubscriptionClient.class);
+		final List<RemoteDevice> allDevices = new ArrayList<>();
+	    final Queue<RemoteDevice> latestDevices = new LinkedList<>();
+	    PdbInterface pdb = new Pdb("/usr/local/bin/modbus");
+		//PdbInterface pdb = new PdbMock();
+	    
+    	
+    	LocalDevice localDevice = null;
+    	final ArrayList<PointManager> deviceManagers = new ArrayList<>();
+    	//Add devices here
+    	deviceManagers.add(new PointManager(17800, pdb, ddc01_1.points(pdb)));//UC1
+    	//List<PointConnnectionContainer> PointListDDC1_1 = new ArrayList<PointConnnectionContainer>();
+        //PointListDDC1_1.addAll(ddc01_1.points(pdb));
+        //PointListDDC1_1.addAll(ddc01_2.points(pdb));
+        //PointListDDC1_1.addAll(ddc01_3.points(pdb));
+        
+        //PointManager pm1 = new PointManager(121, pdb, PointListDDC1_1);
+
+    	
+    	logger.info("Starting");
+
+    	try {
+    		
+    		IpNetworkBuilder networkBuilder = new IpNetworkBuilder();
+    		networkBuilder
+    			.withSubnet("10.183.0.0", 26)//LAN
+    			//.withSubnet("10.14.8.0", 24)//WAN
+    			.withPort(0xBAC0)
+    			.withLocalNetworkNumber(1);
+    		IpNetwork network = networkBuilder.build(); 
+    		
+    		System.err.println("Local device configured");
+    		localDevice = new LocalDevice(114, new DefaultTransport(network));//WDC id
+    		System.err.println("Local device created");
+    		
+    		
+    		//List<PointConnnectionContainer> pointListDuc01 = duc01.points(pdb);
+
+    		localDevice.initialize();
+    		System.err.println("Local device initialized");
+    		
+    		//Start discovery
+    		localDevice.startRemoteDeviceDiscovery();
+    		/*
+    		//Forecast
+    		PDBf misc_fcprec_cm = new PDBf("misc.fcprec.cm","Forecast - precipitation","mm");
+            PDBf misc_fctemp_cm = new PDBf("misc.fctemp.cm","Forecast - outside temperature","C");
+            PDBf misc_fcwind_cm = new PDBf("misc.fcwind.cm","Forecast - wind speed","m/s");
+            PDBf misc_fchum_cm = new PDBf("misc.fchum.cm","Forecast - humidity","%rH");
+            PDBf misc_fcsun_cm = new PDBf("misc.fcsun.cm","Forecast - solar radiation","W/m2");
+
+            PDBi misc_forecastfc_area	= new PDBi("misc.forecast.fc.area","Forecast ID","",47001);
+            PDBi misc_forecastfc_del	= new PDBi("misc.forecast.fc.del","Forecast del","h",0);
+            PDBf misc_forecastfc_prec	= new PDBf("misc.forecast.fc.prec","Forecast prec","mm");
+            PDBf misc_forecastfc_temp	= new PDBf("misc.forecast.fc.temp","Forecast temp","C");
+            PDBf misc_forecastfc_wind	= new PDBf("misc.forecast.fc.wind","Forecast wind","m/s");
+            PDBf misc_forecastfc_hum	= new PDBf("misc.forecast.fc.hum","Forecast hum","%rH");
+            PDBf misc_forecastfc_sun	= new PDBf("misc.forecast.fc.sun","Forecast sun","W/m2");
+    		
+            PDBf met_outdoortemp01_cm = new PDBf("met.outdoortemp01.cm","Outside air temperature","C");
+            */
+    		
+        	while(true) {
+        		/*
+        		//Forecast
+            	misc_fcprec_cm.set(misc_forecastfc_prec.get());
+            	misc_fctemp_cm.set(misc_forecastfc_temp.get());
+            	misc_fcwind_cm.set(misc_forecastfc_wind.get());
+            	misc_fchum_cm.set(misc_forecastfc_hum.get());
+            	misc_fcsun_cm.set(misc_forecastfc_sun.get());
+            	
+            	met_outdoortemp01_cm.set(misc_forecastfc_temp.get());
+            	*/
+        		//Fetch discovered devices
+        		for (RemoteDevice rd : localDevice.getRemoteDevices()) {
+        			
+        			if (!allDevices.contains(rd)) {
+        				//Add to device list
+        				allDevices.add(rd);
+						//Add to latest discovered
+        				latestDevices.add(rd);
+					}
+				}
+        		
+        		//Pop device from latest discovered
+        		if (!latestDevices.isEmpty()) {
+        			//Pop device from the discovery list
+
+        			RemoteDevice rd = latestDevices.poll();
+        			System.out.println("Found new device" + rd.toString());
+        			// Prepare device
+        			localDevice.getRemoteDeviceBlocking(rd.getInstanceNumber());
+        			//Get extended info
+        			boolean success = false;
+        			try {
+        				DiscoveryUtils.getExtendedDeviceInformation(localDevice, rd);
+        				Thread.sleep(5000);
+        				//Get device object list
+        				final PropertyReferences propRefs = new PropertyReferences() //
+        	                    .add(rd.getObjectIdentifier(), PropertyIdentifier.objectList);
+        				final PropertyValues actualValues = RequestUtils.readProperties(localDevice, rd, propRefs, false, null);
+        	        	System.out.println("Device object " + rd.getInstanceNumber() + " list count: " + actualValues.toString().split(",").length);
+        				success = true;
+					} catch (BACnetException e) {
+						success = false;
+					}
+        			
+        			if (success) {
+        				System.out.println("Successfully identified device: " + rd.getInstanceNumber());
+        				for (PointManager pointManager : deviceManagers) {
+							if (!pointManager.isConfigured() && pointManager.getRemoteDeviceIdentifier() == rd.getInstanceNumber()) {
+								pointManager.setLocalDevice(localDevice);
+								pointManager.setRemoteDevice(rd);
+								System.out.println("Paired device: " + rd.getInstanceNumber() + " with pointManger: " + pointManager.toString());
+							}
+						}
+        			} else {
+        				// Check if unreachable device in our list of interest, if so reschedule it
+        				if (deviceManagers.stream().anyMatch((pm) -> pm.getRemoteDeviceIdentifier() == rd.getInstanceNumber() )) {
+        					latestDevices.add(rd);
+        					System.out.println("Could not add device: " + rd.getInstanceNumber() + " Readded for retry");
+        				} else {
+        					System.out.println("Could not add device: " + rd.getInstanceNumber() + " Discarded because not in list of devices of intrerest");
+        				}
+        			}
+        		}
+        		
+        		for (PointManager pointManager : deviceManagers) {
+        			if (pointManager.isConfigured()) {
+            			pointManager.run();
+            			Thread.sleep(5000);
+        			}
+        			
+				}
+        		
+        	}
+        }
+    	
+    	catch (Exception e) {
+                	System.err.println("Exception caught in main:");
+                	e.printStackTrace();
+        }
+        catch(Throwable e) {
+        	System.err.println("Throwable caught in main:");
+            e.printStackTrace();
+        }
+        finally {
+        	if (localDevice != null)
+        		// Unsubscribe
+        		for (PointManager pM : deviceManagers) {
+        			if (pM.isConfigured()) {
+        				pM.unSubscribe();
+				}
+                localDevice.terminate();
+                }
+        }
+            	
+        	
+    	
+        			
+        		
+        		
+        		//Start BACnetDevice data fetching
+        		        		
+        		
+/*        		System.out.println("---------------- Current cached devices --------------");
+        		for (RemoteDevice remoteDevice : localDevice.getRemoteDevices()) {
+        			System.out.println("Remote Device: " + remoteDevice.toString());
+        		}
+        		System.out.println("------------------------------------------------------");
+        		if (localDevice.getRemoteDevices().size() >= 13 ) {
+        			allDevicesFound = true;
+        		}
+	            Thread.sleep(10000);
+            }
+        	
+        	//remoteDevice01 = localDevice.getRemoteDeviceBlocking(2098180);
+        	
+        	System.out.println("Remote device information: " + remoteDevice01.toString());
+        	DiscoveryUtils.getExtendedDeviceInformation(localDevice, remoteDevice01);
+        	
+        	final PropertyReferences propRefs = new PropertyReferences() //
+                    .add(remoteDevice01.getObjectIdentifier(), PropertyIdentifier.objectList);
+        	        	
+        	final PropertyValues actualValues = RequestUtils.readProperties(localDevice, remoteDevice01, propRefs, false, null);
+        	System.out.println("Device object list" + actualValues.toString());
+        	
+        	//ServicesSupported ss = remoteDevice01.getServicesSupported();
+        	//System.out.println("SS: " + ss.toString());
+        	//remoteDevice01.getName();
+        	while (true) {
+        		System.out.println("Extended remote device information" + remoteDevice01.toString() + " : ");
+        		
+        		Thread.sleep(10000);
+        	}
+        	
+        }*/
+        
+    }
+    public static AcknowledgementService send(LocalDevice d, ConfirmedRequestService s) throws Exception {
+        Address a = IpNetworkUtils.toAddress("localhost", 0xbac0);
+        return d.send(a, s).get();
+    }
+}

@@ -77,57 +77,20 @@ public class SimpleSubscriptionClient {
     		Thread.sleep(60000);
     		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-/*
+
 	//Floating Output Calculations - designed for any AHU that with binary/multistate status for heating/cooling/heat recovery outputs (ex, staged gas heating, DX cooling). 
 	//Converts digital values to floating values so Ecopilot can better understand what the unit is doing and control accordingly
 
 
 	//Point Declaration 
     		
-	PDBf AHU01CLG = new PDBf("ahu01.suptempcont01.out1","Cooling PID Output","%");
-	PDBf AHU01HRC = new PDBf("ahu01.suptempcont01.out2","Heat Recovery PID Output","%");
-	PDBf AHU01HTG = new PDBf("ahu01.suptempcont01.out3","Heating PID Output","%");
-
-	//AHU-1 Output Calculations
-	//Make sure the points you're referencing in the "if" statements (ex. "ahu01.clgstage01.di") exist in the ddc file and match the actual status of the system
+	PDBf ERV06CLG = new PDBf("erv06.suptempcont01.out1","Cooling Output","%");
+	PDBf ERV06HRC = new PDBf("erv06.suptempcont01.out2","Heat Recovery Signal","%");
+	PDBf ERV07CLG = new PDBf("erv07.suptempcont01.out1","Cooling Output","%");
+	PDBf ERV07HRC = new PDBf("erv07.suptempcont01.out2","Heat Recovery Signal","%");
 
 	//Cooling PID Calculation
-	//If no stages are on, PID = 0. If one stage is on, PID = 50, if both are on, PID = 100. 
-	if (pdb.getBoolean("ahu01.clgstage01.di").get() == false && pdb.getBoolean("ahu01.clgstage02.di").get() == false) {
-		Thread.sleep(600);
-		AHU01CLG.set(0);
-	} else if (pdb.getBoolean("ahu01.clgstage01.di").get() == true ^ pdb.getBoolean("ahu01.clgstage02.di").get() == true)
-	{
-		;
-		AHU01CLG.set(50);
-	} else if (pdb.getBoolean("ahu01.clgstage01.di").get() == true && pdb.getBoolean("ahu01.clgstage02.di").get() == true) { 
-		AHU01CLG.set(100);
-	}
 
-	//Heating PID Calculation
-	//If no stages are on, PID = 0. If one stage is on, PID = 50, if both are on, PID = 100. 
-	if (pdb.getBoolean("ahu01.htgstage01.di").get() == false && pdb.getBoolean("ahu01.htgstage02.di").get() == false) {
-		Thread.sleep(600);
-		AHU01HTG.set(0);
-	} else if (pdb.getBoolean("ahu01.htgstage01.di").get() == true ^ pdb.getBoolean("ahu01.htgstage02.di").get() == true)
-	{
-		;
-		AHU01HTG.set(50);
-	} else if (pdb.getBoolean("ahu01.htgstage01.di").get() == true && pdb.getBoolean("ahu01.htgstage02.di").get() == true) { 
-		AHU01HTG.set(100);
-	}
-
-	//Heat Recovery PID Calculation
-	//Assuming system is always in heat recovery mode. If supply fan is off, PID = 0. If supply fan is on, PID = 100. 
-	if (pdb.getBoolean("ahu01.supfansts01.di").get() == false) {
-		Thread.sleep(600);
-		AHU01HRC.set(0);
-	} else if (pdb.getBoolean("ahu01.supfansts01.di").get() == true)
-	{
-		;
-		AHU01HRC.set(100);
-	}
-*/
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 /*
@@ -308,6 +271,59 @@ public class SimpleSubscriptionClient {
         			if (pointManager.isConfigured()) {
             			pointManager.run();
             			//Thread.sleep(2500);
+            			//ERV06	
+            			if (pdb.getBoolean("erv06.coolstage01.di").get() == false && pdb.getBoolean("erv06.coolstage02.di").get() == false) {
+            				Thread.sleep(600);
+            				ERV06CLG.set(0);
+            			} else if (pdb.getBoolean("erv06.coolstage01.di").get() == true ^ pdb.getBoolean("erv06.coolstage02.di").get() == true)
+            			{
+            				;
+            				ERV06CLG.set(50);
+            			} else if (pdb.getBoolean("erv06.coolstage01.di").get() == true && pdb.getBoolean("erv06.coolstage02.di").get() == true) { 
+            				ERV06CLG.set(100);
+            			}
+
+            			//Heat Recovery PID Calculation
+
+            			if (pdb.getBoolean("erv06.coolstage01.di").get() == true || (pdb.getBoolean("erv06.coolstage02.di").get() == true)) 
+            			{
+            				Thread.sleep(600);
+            				ERV06HRC.set(0);
+            			} else 
+            			{
+            				;
+            				pdb.getFloat("erv06.suptempcont01.out2").set(pdb.getFloat("erv06.heatwheelspeed01.cm").get());  
+            				
+            			}
+            		//ERV7	
+            			//Cooling PID Calculation
+            				//If no stages are on, PID = 0. If one stage is on, PID = 50, if both are on, PID = 100. 
+            				if (pdb.getBoolean("erv07.coolstage01.di").get() == false && pdb.getBoolean("erv07.coolstage02.di").get() == false) {
+            					//Thread.sleep(600);
+            					ERV07CLG.set(0);
+            				} else if (pdb.getBoolean("erv07.coolstage01.di").get() == true ^ pdb.getBoolean("erv07.coolstage02.di").get() == true)
+            				{
+            					;
+            					ERV07CLG.set(50);
+            				} else if (pdb.getBoolean("erv07.coolstage01.di").get() == true && pdb.getBoolean("erv07.coolstage02.di").get() == true) { 
+            					ERV07CLG.set(100);
+            				}
+
+
+            				//Heat Recovery PID Calculation
+            				//Assuming system is always in heat recovery mode. If supply fan is off, PID = 0. If supply fan is on, PID = 100. 
+            				if (pdb.getBoolean("erv07.coolstage01.di").get() == true || (pdb.getBoolean("erv07.coolstage02.di").get() == true)) 
+            				{
+            					//Thread.sleep(600);
+            					ERV07HRC.set(0);
+            				} else 
+            				{
+            					;
+            					pdb.getFloat("erv07.suptempcont01.out2").set(pdb.getFloat("erv07.heatwheelspeed01.cm").get());  
+            					
+            				}
+          			
+            			
         			}
 				}
         		

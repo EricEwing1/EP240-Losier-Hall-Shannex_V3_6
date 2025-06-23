@@ -59,7 +59,7 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
     
 	// Main Boiler Plant
 	pointList.add(new PointConnnectionContainer(pdb.createMultiState("hs01.heatpump01.osw","Heating Control Enable Point ",msTranslation1), new ObjectIdentifier(ObjectType.analogValue, 400)));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.ecomode.cm","Eco Mode ","0=OFF 1=ON"), new ObjectIdentifier(ObjectType.analogValue, 400),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.ecomode.cm","Eco Mode 0=OFF 1=ON 2=AUTO ",""), new ObjectIdentifier(ObjectType.analogValue, 400),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suptempcont01.sp","Existing Heating Supply Water BAS Setpoint ","C"), new ObjectIdentifier(ObjectType.analogValue, 401),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suptempcont01.ms","Main Supply Water Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 402),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.rettemp01.cm","Main Return Water Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 409),true));
@@ -73,17 +73,17 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.heatlockout01.di","Heating Lockout Mode "), new ObjectIdentifier(ObjectType.binaryValue, 408),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler01.di","Heating Boiler 1 Status "), new ObjectIdentifier(ObjectType.binaryValue, 410),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler01.al","Heating Boiler 1 Alarm "), new ObjectIdentifier(ObjectType.binaryValue, 411),true));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boiler01.out","Heating Boiler 1 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 412),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suptempcont01.out1","Heating Boiler 1 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 412),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.heatpump01.di","Heating Boiler 1 Pump Status "), new ObjectIdentifier(ObjectType.binaryValue, 413),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boilersuptemp01.cm","Heating Boiler 1 Supply Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 414),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler02.di","Heating Boiler 2 Status "), new ObjectIdentifier(ObjectType.binaryValue, 415),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler02.al","Heating Boiler 2 Alarm "), new ObjectIdentifier(ObjectType.binaryValue, 416),true));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boiler02.out","Heating Boiler 2 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 417),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suptempcont01.out2","Heating Boiler 2 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 417),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.heatpump02.di","Heating Boiler 2 Pump Status "), new ObjectIdentifier(ObjectType.binaryValue, 418),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boilersuptemp02.cm","Heating Boiler 2 Supply Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 419),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler03.di","Heating Boiler 3 Status "), new ObjectIdentifier(ObjectType.binaryValue, 420),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.boiler03.al","Heating Boiler 3 Alarm "), new ObjectIdentifier(ObjectType.binaryValue, 421),true));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boiler03.out","Heating Boiler 3 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 422),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suptempcont01.out3","Heating Boiler 3 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 422),true));
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("hs01.heatpump03.di","Heating Boiler 3 Pump Status "), new ObjectIdentifier(ObjectType.binaryValue, 423),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.boilersuptemp03.cm","Heating Boiler 3 Supply Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 424),true));
 
@@ -97,8 +97,8 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("hs01.suppresscont01.sp","InFloor Heating Diff. Pressure Setpoint ","psi"), new ObjectIdentifier(ObjectType.analogValue, 432),true));
     
 	// ERV#6
-	pointList.add(new PointConnnectionContainer(pdb.createMultiState("erv06.day.tc.sw","ERV06 Control Enable Point ",msTranslation1), new ObjectIdentifier(ObjectType.analogValue, 436)));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.ecomode.cm","Eco Mode","0=OFF 1=ON"), new ObjectIdentifier(ObjectType.analogValue, 436),true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("erv06.comfort.tc.sw","ERV06 Control Enable Point ",msTranslation1), new ObjectIdentifier(ObjectType.analogValue, 436)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.ecomode.cm","Eco Mode 0=OFF 1=ON 2=AUTO",""), new ObjectIdentifier(ObjectType.analogValue, 436),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.suptempcont01.sp","Existing Supply Air Temp BAS Setpoint ","C"), new ObjectIdentifier(ObjectType.analogValue, 437),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.suptempcont01.ms","Main Supply Air Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 438),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.suptempcont01.mn","Supply Temp Minimum Setpoint ","C"), new ObjectIdentifier(ObjectType.analogValue, 439)));
@@ -128,7 +128,7 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.exhtemp01.cm","Exhaust Air Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 459),true));
 	
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("erv06.heatwheel01.di","Heat Wheel Status "), new ObjectIdentifier(ObjectType.binaryValue, 460),true));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.suptempcont01.out2","Heatwheel Exhaust Speed ","%"), new ObjectIdentifier(ObjectType.analogValue, 461),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.heatwheelspeed01.cm","Heatwheel Exhaust Speed ","%"), new ObjectIdentifier(ObjectType.analogValue, 461),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.facebypass01.out","Face and Bypass Damper ","%"), new ObjectIdentifier(ObjectType.analogValue, 462),true));
 	
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.rethumid01.ms","Return Air Humidity ","%"), new ObjectIdentifier(ObjectType.analogValue, 463),true));
@@ -136,8 +136,8 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv06.rethumid01.out","Humidifier Signal ","%"), new ObjectIdentifier(ObjectType.analogValue, 465),true));
 
 	// ERV#7
-	pointList.add(new PointConnnectionContainer(pdb.createMultiState("erv07.day.tc.sw","ERV07 Control Enable Point ",msTranslation1), new ObjectIdentifier(ObjectType.analogValue, 466)));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.ecomode.cm","Eco Mode","0=OFF 1=ON"), new ObjectIdentifier(ObjectType.analogValue, 466),true));
+	pointList.add(new PointConnnectionContainer(pdb.createMultiState("erv07.comfort.tc.sw","ERV07 Control Enable Point ",msTranslation1), new ObjectIdentifier(ObjectType.analogValue, 466)));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.ecomode.cm","Eco Mode 0=OFF 1=ON 2=AUTO",""), new ObjectIdentifier(ObjectType.analogValue, 466),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.suptempcont01.sp","Existing Supply Air Temp BAS Setpoint ","C"), new ObjectIdentifier(ObjectType.analogValue, 467),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.suptempcont01.ms","Main Supply Air Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 468),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.suptempcont01.mn","Supply Temp Minimum Setpoint ","C"), new ObjectIdentifier(ObjectType.analogValue, 469)));
@@ -167,7 +167,7 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.exhtemp01.cm","Exhaust Air Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 489),true));
 	
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("erv07.heatwheel01.di","Heat Wheel Status "), new ObjectIdentifier(ObjectType.binaryValue, 490),true));
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.suptempcont01.out2","Heatwheel Exhaust Speed ","%"), new ObjectIdentifier(ObjectType.analogValue, 491),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.heatwheelspeed01.cm","Heatwheel Exhaust Speed ","%"), new ObjectIdentifier(ObjectType.analogValue, 491),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.facebypass01.out","Face and Bypass Damper ","%"), new ObjectIdentifier(ObjectType.analogValue, 492),true));
 	
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("erv07.rethumid01.ms","Return Air Humidity ","%"), new ObjectIdentifier(ObjectType.analogValue, 493),true));
@@ -242,21 +242,21 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("ac05.suptemp01.di","Heating Coil "), new ObjectIdentifier(ObjectType.binaryValue, 591),true));
 
     // Fans
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf02.supfan01.do","Supply Fan 2 "), new ObjectIdentifier(ObjectType.binaryValue, 600),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf02.supfan01.di","Supply Fan 2 "), new ObjectIdentifier(ObjectType.binaryValue, 600),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf02.supfan01.cm","Supply Fan 2 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 601),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf04.supfan01.do","Supply Fan 4 "), new ObjectIdentifier(ObjectType.binaryValue, 602),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf04.supfan01.di","Supply Fan 4 "), new ObjectIdentifier(ObjectType.binaryValue, 602),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf04.supfan01.cm","Supply Fan 4 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 603),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf05.supfan01.do","Wing Booster Supply Fan 5 "), new ObjectIdentifier(ObjectType.binaryValue, 604),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf05.supfan01.di","Wing Booster Supply Fan 5 "), new ObjectIdentifier(ObjectType.binaryValue, 604),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf05.supfan01.cm","Wing Booster Supply Fan 5 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 605),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf06.supfan01.do","Supply Fan 6 "), new ObjectIdentifier(ObjectType.binaryValue, 606),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf06.supfan01.di","Supply Fan 6 "), new ObjectIdentifier(ObjectType.binaryValue, 606),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf06.supfan01.cm","Supply Fan 6 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 607),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf07.supfan01.do","Wing Booster Supply Fan 7 "), new ObjectIdentifier(ObjectType.binaryValue, 608),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf07.supfan01.di","Wing Booster Supply Fan 7 "), new ObjectIdentifier(ObjectType.binaryValue, 608),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf07.supfan01.cm","Wing Booster Supply Fan 7 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 609),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf08.supfan01.do","Wing Booster Supply Fan 8 "), new ObjectIdentifier(ObjectType.binaryValue, 610),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf08.supfan01.di","Wing Booster Supply Fan 8 "), new ObjectIdentifier(ObjectType.binaryValue, 610),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf08.supfan01.cm","Wing Booster Supply Fan 8 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 611),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf09.supfan01.do","Supply Fan 9 "), new ObjectIdentifier(ObjectType.binaryValue, 612),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf09.supfan01.di","Supply Fan 9 "), new ObjectIdentifier(ObjectType.binaryValue, 612),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf09.supfan01.cm","Supply Fan 9 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 613),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf10.supfan01.do","Wing Booster Supply Fan 10 "), new ObjectIdentifier(ObjectType.binaryValue, 614),true));
+	pointList.add(new PointConnnectionContainer(pdb.createBoolean("sf10.supfan01.di","Wing Booster Supply Fan 10 "), new ObjectIdentifier(ObjectType.binaryValue, 614),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sf10.supfan01.cm","Wing Booster Supply Fan 10 Status ","amp"), new ObjectIdentifier(ObjectType.analogValue, 615),true));
  
 	// DHW
@@ -265,14 +265,14 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("dhw01.boiler04.di","DHW Boiler 4 Status "), new ObjectIdentifier(ObjectType.binaryValue, 622),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boiler04.out","DHW Boiler 4 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 623),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("dhw01.boiler04.al","DHW Boiler 4 Alarm "), new ObjectIdentifier(ObjectType.binaryValue, 624),true));
+	pointList.add(new PointConnnectionContainer(pdb.createAlarm("dhw01.boiler04.al","DHW Boiler 4 Alarm ","HEAT","CRIT"), new ObjectIdentifier(ObjectType.binaryValue, 624),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.heatpump04.cm","DHW Pump 4 Status ","amps"), new ObjectIdentifier(ObjectType.analogValue, 625),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boilersuptemp04.cm","DHW Boiler 4 Water Supply Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 626),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boilervlvmode04.di","DHW Boiler 4 Divirt Valve Mode ","0=DHW 1=Heat"), new ObjectIdentifier(ObjectType.analogValue, 627),true));
 	
 	pointList.add(new PointConnnectionContainer(pdb.createBoolean("dhw01.boiler05.di","DHW Boiler 5 Status "), new ObjectIdentifier(ObjectType.binaryValue, 628),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boiler05.out","DHW Boiler 5 Modulation ","%"), new ObjectIdentifier(ObjectType.analogValue, 629),true));
-	pointList.add(new PointConnnectionContainer(pdb.createBoolean("dhw01.boiler05.al","DHW Boiler 5 Alarm "), new ObjectIdentifier(ObjectType.binaryValue, 630),true));
+	pointList.add(new PointConnnectionContainer(pdb.createAlarm("dhw01.boiler05.al","DHW Boiler 5 Alarm ","HEAT","CRIT"), new ObjectIdentifier(ObjectType.binaryValue, 630),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.heatpump05.cm","DHW Pump 5 Status ","amps"), new ObjectIdentifier(ObjectType.analogValue, 631),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boilersuptemp05.cm","DHW Boiler 5 Water Supply Temperature ","C"), new ObjectIdentifier(ObjectType.analogValue, 632),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("dhw01.boilervlvmode05.di","DHW Boiler 5 Divirt Valve Mode ","0=DHW 1=Heat"), new ObjectIdentifier(ObjectType.analogValue, 633),true));

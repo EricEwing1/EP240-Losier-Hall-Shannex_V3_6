@@ -365,7 +365,7 @@ public static List<PointConnnectionContainer> points(PdbInterface pdb) throws Pd
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("efl01.roomtemp1076.cm","Room 1076 ","C"), new ObjectIdentifier(ObjectType.analogValue, 776),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("efl01.roomtemp1077.cm","Room 1077 ","C"), new ObjectIdentifier(ObjectType.analogValue, 777),true));
 	
-	pointList.add(new PointConnnectionContainer(pdb.createFloat("sfl02.roomtemp2001.cm","Room 2001 ","C"), new ObjectIdentifier(ObjectType.analogValue, 801),true));
+	pointList.add(new PointConnnectionContainer(pdb.createFloat("sfl02.roomtemp2001.cm","Room 2001 ","C"), new ObjectIdentifier(ObjectType.analogValue, 801),true));//test
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sfl02.roomtemp2002.cm","Room 2002 ","C"), new ObjectIdentifier(ObjectType.analogValue, 802),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sfl02.roomtemp2003.cm","Room 2003 ","C"), new ObjectIdentifier(ObjectType.analogValue, 803),true));
 	pointList.add(new PointConnnectionContainer(pdb.createFloat("sfl02.roomtemp2004.cm","Room 2004 ","C"), new ObjectIdentifier(ObjectType.analogValue, 804),true));
